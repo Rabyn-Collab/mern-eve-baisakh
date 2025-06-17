@@ -1,69 +1,21 @@
 
 
-
-
-
-export const users = [
+export const blogs = [
   {
     id: 1,
-    name: 'Tania Andrew',
-    post: 'Software Engineer',
-    image: 'https://docs.material-tailwind.com/img/face-1.jpg'
-
+    image: 'https://www.w3schools.com/w3images/woods.jpg',
+    title: 'TITLE HEADING',
+    desc: 'Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.',
+    date: 'April 7, 2014',
+    comments: '5'
   },
   {
     id: 2,
-    name: 'Alexander',
-    post: 'Backened Developer',
-    image: 'https://docs.material-tailwind.com/img/face-2.jpg'
+    image: 'https://www.w3schools.com/w3images/bridge.jpg',
+    title: 'BLOG ENTRY',
+    desc: 'Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla',
+    date: 'April 2, 2014',
+    comments: '3'
+  },
 
-  },
-  {
-    id: 3,
-    name: 'Emma Willever',
-    post: 'Software Engineer',
-    image: 'https://docs.material-tailwind.com/img/face-3.jpg'
-
-  }
-];
-
-
-
-export const data = [
-  {
-    imageLink:
-      "https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-  },
-  {
-    imageLink:
-      "https://images.unsplash.com/photo-1432462770865-65b70566d673?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-  },
-  {
-    imageLink:
-      "https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2560&q=80",
-  },
-  {
-    imageLink:
-      "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
-  },
-  {
-    imageLink:
-      "https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80",
-  },
-  {
-    imageLink:
-      "https://images.unsplash.com/photo-1682407186023-12c70a4a35e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80",
-  },
-  {
-    imageLink:
-      "https://demos.creative-tim.com/material-kit-pro/assets/img/examples/blog5.jpg",
-  },
-  {
-    imageLink:
-      "https://material-taillwind-pro-ct-tailwind-team.vercel.app/img/content2.jpg",
-  },
-  {
-    imageLink:
-      "https://images.unsplash.com/photo-1620064916958-605375619af8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1493&q=80",
-  },
 ];

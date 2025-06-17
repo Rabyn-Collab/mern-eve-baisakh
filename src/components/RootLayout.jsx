@@ -5,7 +5,7 @@ import Header from './Header'
 export default function RootLayout() {
   return (
     <div>
-      <Header />
+      {/* <Header /> */}
       <Outlet />
 
     </div>
