@@ -6,7 +6,7 @@ import Footer from './Footer'
 export default function RootLayout() {
   return (
     <div>
-      {/* <Header /> */}
+
       <Outlet />
       <Footer />
 

@@ -9,8 +9,7 @@ export default function Header() {
       <h1 className="text-2xl">React</h1>
       <nav className="space-x-6">
 
-        <NavLink to={'/about'}>About</NavLink>
-        <NavLink to={'/contact'}>Contact</NavLink>
+
 
       </nav>
 
