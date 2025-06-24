@@ -1,10 +1,5 @@
 @import "tailwindcss";
+@config "../tailwind.config.js";
 
 
-@theme {
-  /* --color-*: initial;
-  --color-yells: #FFA673;
-  --color-white: red; */
-
-
-}
+@theme {}
