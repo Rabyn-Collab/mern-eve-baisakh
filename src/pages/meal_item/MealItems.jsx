@@ -1,8 +1,10 @@
 import axios from "axios";
-import { useEffect } from "react";
-import { useParams } from "react-router"
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router"
 
 export default function MealItems() {
+  const nav = useNavigate();
+  const [data, setData] = useState();
   const { category } = useParams();
   const getData = async () => {
     try {
@@ -11,9 +13,7 @@ export default function MealItems() {
           c: category
         }
       });
-
-      console.log(response.data);
-
+      setData(response.data);
     } catch (err) {
 
     }
@@ -24,8 +24,17 @@ export default function MealItems() {
   }, []);
 
   return (
-    <div>
-      <h1>Hello jee</h1>
+    <div className="grid grid-cols-4 gap-5">
+      {data && data.meals.map((meal) => {
+        return <div
+          onClick={() => nav(`/meal/${meal.idMeal}`)}
+          key={meal.idMeal} className="shadow-2xl cursor-pointer">
+          <img className="rounded-tr-lg rounded-tl-lg" src={meal.strMealThumb} alt="" />
+          <h1 className="text-center p-2">{meal.strMeal}</h1>
+
+        </div>
+
+      })}
 
     </div>
   )

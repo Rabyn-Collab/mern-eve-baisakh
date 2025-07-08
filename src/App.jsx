@@ -4,6 +4,7 @@ import { RouterProvider } from 'react-router-dom';
 import RootLayout from './components/RootLayout';
 import NotFound from './pages/not-found/NotFound';
 import MealItems from './pages/meal_item/MealItems';
+import Meal from './pages/meal/Meal';
 
 export default function App() {
   const router = createBrowserRouter([
@@ -19,6 +20,10 @@ export default function App() {
           path: 'meal-items/:category',
           element: <MealItems />
 
+        },
+        {
+          path: 'meal/:id',
+          element: <Meal />
         },
 
         {
