@@ -1,32 +1,14 @@
 import { Typography } from "@material-tailwind/react";
-import axios from "axios";
-import { useEffect, useState } from "react";
+
 import { useParams } from "react-router"
+import { useApi } from "../../hooks/useApi";
 
 export default function Meal() {
-  const [data, setData] = useState();
-
   const { id } = useParams();
 
-  const getData = async () => {
-    try {
-      const reponse = await axios.get('https://www.themealdb.com/api/json/v1/1/lookup.php', {
-        params: {
-          i: id
-        }
-      });
-      setData(reponse.data);
-    } catch (err) {
-
-      console.log(err);
-
-    }
-  }
+  const [data, load, err] = useApi('https://www.themealdb.com/api/json/v1/1/lookup.php', { i: id })
 
 
-  useEffect(() => {
-    getData()
-  }, []);
 
 
 
@@ -37,7 +19,7 @@ export default function Meal() {
     <div>
 
       {data && data.meals.map((meal) => {
-        console.log(Object.keys(meal));
+
         const youtubeId = meal.strYoutube.split('=')[1];
 
         return <div key={meal.idMeal} className="space-y-5">

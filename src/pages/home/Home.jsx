@@ -4,29 +4,14 @@ import React, { useEffect, useState } from 'react'
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css'
 import { useNavigate } from 'react-router';
+import { useApi } from '../../hooks/useApi';
 export default function Home() {
   const nav = useNavigate();
-  const [data, setData] = useState();
-  const [load, setLoad] = useState(false);
 
-
-  const getData = async () => {
-    setLoad(true);
-    try {
-      const response = await axios.get('https://www.themealdb.com/api/json/v1/1/categories.php');
-      setData(response.data);
-      setLoad(false);
-    } catch (err) {
-      setLoad(false);
-      console.log(err);
-    }
-  }
+  const [data, load, err] = useApi('https://www.themealdb.com/api/json/v1/1/categories.php');
 
 
 
-  useEffect(() => {
-    getData();
-  }, []);
 
   if (load) {
     return <div>
