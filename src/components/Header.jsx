@@ -1,16 +1,12 @@
 import { NavLink } from "react-router";
 
-
-
 export default function Header() {
   return (
-    <div className="bg-black text-white px-5 py-2 justify-between flex items-end">
+    <div className="bg-black text-white px-5 py-3 flex items-baseline justify-between">
+      <h1 className="text-2xl">Logo</h1>
 
-      <h1 className="text-2xl">React</h1>
-      <nav className="space-x-6">
-
-
-
+      <nav>
+        <NavLink to={'/user-form'}>UserForm</NavLink>
       </nav>
 
     </div>
