@@ -1,9 +1,9 @@
 import { createBrowserRouter } from 'react-router'
-import Home from './pages/home/Home';
 import { RouterProvider } from 'react-router-dom';
 import RootLayout from './components/RootLayout';
-import NotFound from './pages/not-found/NotFound';
-import UserForm from './pages/user/UserForm';
+import NotFound from './features/not-found/NotFound';
+import UserForm from './features/user/UserForm';
+import UserList from './features/user/UserList';
 
 export default function App() {
   const router = createBrowserRouter([
@@ -13,7 +13,7 @@ export default function App() {
       children: [
         {
           index: true,
-          element: <Home />,
+          element: <UserList />,
         },
         {
           path: 'user-form',

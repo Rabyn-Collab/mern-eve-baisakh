@@ -1,6 +1,10 @@
 import { Button, Checkbox, Input, Option, Radio, Select, Textarea, Typography } from "@material-tailwind/react";
 import { Formik } from "formik";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 import * as Yup from 'yup';
+import { addUser } from "./userSlice";
+import { nanoid } from "@reduxjs/toolkit";
 
 
 const valSchema = Yup.object({
@@ -14,6 +18,8 @@ const valSchema = Yup.object({
 
 
 export default function UserForm() {
+  const dispatch = useDispatch();
+  const nav = useNavigate();
   return (
     <div>
       <Formik
@@ -27,7 +33,8 @@ export default function UserForm() {
 
         }}
         onSubmit={(val) => {
-          console.log(val);
+          dispatch(addUser({ ...val, id: nanoid() }))
+          nav(-1);
         }}
         validationSchema={valSchema}
       >
