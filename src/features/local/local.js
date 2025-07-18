@@ -6,7 +6,7 @@
 //const persons = '[]';
 
 export const setUsersToLocal = (users) => {
-  localStorage.setItem('users', JSON.stringify(users))
+  localStorage.setItem('users', JSON.stringify(users));
 }
 
 export const getUserFromLocal = () => {

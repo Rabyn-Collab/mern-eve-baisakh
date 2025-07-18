@@ -4,6 +4,7 @@ import RootLayout from './components/RootLayout';
 import NotFound from './features/not-found/NotFound';
 import UserForm from './features/user/UserForm';
 import UserList from './features/user/UserList';
+import UserUpdateForm from './features/user/UserUpdateForm';
 
 export default function App() {
   const router = createBrowserRouter([
@@ -20,6 +21,10 @@ export default function App() {
           element: <UserForm />
         },
 
+        {
+          path: 'update-form/:id',
+          element: <UserUpdateForm />
+        },
         {
           path: '*',
           element: <NotFound />

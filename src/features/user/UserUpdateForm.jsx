@@ -1,39 +1,34 @@
 import { Button, Checkbox, Input, Option, Radio, Select, Textarea, Typography } from "@material-tailwind/react";
 import { Formik } from "formik";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router";
-import * as Yup from 'yup';
-import { addUser } from "./userSlice";
-import { nanoid } from "@reduxjs/toolkit";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router";
+import { valSchema } from "./UserForm";
+import { updateUser } from "./userSlice";
 
 
-export const valSchema = Yup.object({
-  username: Yup.string().min(5).max(25).required(),
-  email: Yup.string().email().required(),
-  gender: Yup.string().required(),
-  habits: Yup.array().min(1).required(),
-  country: Yup.string().required(),
-  detail: Yup.string().min(10).max(200).required()
-});
+export default function UserUpdateForm() {
+  const { id } = useParams();
+  const { users } = useSelector((state) => state.userSlice);
+
+  const user = users.find((user) => user.id === id);
 
 
-export default function UserForm() {
   const dispatch = useDispatch();
   const nav = useNavigate();
   return (
     <div>
       <Formik
         initialValues={{
-          username: '',
-          email: '',
-          gender: '',
-          habits: [],
-          country: '',
-          detail: ''
+          username: user.username,
+          email: user.email,
+          gender: user.gender,
+          habits: user.habits,
+          country: user.country,
+          detail: user.detail
 
         }}
         onSubmit={(val) => {
-          dispatch(addUser({ ...val, id: nanoid() }))
+          dispatch(updateUser({ ...val, id: id }))
           nav(-1);
         }}
         validationSchema={valSchema}
@@ -64,6 +59,7 @@ export default function UserForm() {
               <div className="flex gap-5">
                 <Radio
                   color="purple"
+                  checked={values.gender === 'Male'}
                   onChange={handleChange}
                   label='Male'
                   value={'Male'}
@@ -71,6 +67,7 @@ export default function UserForm() {
                 />
                 <Radio
                   onChange={handleChange}
+                  checked={values.gender === 'Female'}
                   color="pink"
                   label='Female'
                   value={'Female'}
@@ -86,6 +83,7 @@ export default function UserForm() {
               <div className="flex gap-5">
                 <Checkbox
                   color="purple"
+                  checked={values.habits.includes('Dance')}
                   onChange={handleChange}
                   label='Dance'
                   value={'Dance'}
@@ -93,6 +91,7 @@ export default function UserForm() {
                 />
                 <Checkbox
                   onChange={handleChange}
+                  checked={values.habits.includes('Sing')}
                   color="pink"
                   label='Sing'
                   value={'Sing'}
@@ -104,6 +103,7 @@ export default function UserForm() {
             <div>
               <Typography>Select Your Country</Typography>
               <Select
+                value={values.country}
                 onChange={(e) => setFieldValue('country', e)}
 
                 label="country">

@@ -1,9 +1,20 @@
 import { IconButton, Typography } from "@material-tailwind/react";
 import { useDispatch, useSelector } from "react-redux"
 import { removeUser } from "./userSlice";
+import { useNavigate } from "react-router";
 
 export default function UserList() {
 
+  // let persons = [
+  //   { id: 1, name: 'ram' },
+  //   { id: 2, name: 'shyam' }
+  // ];
+
+  // persons = persons.map((n) => {
+  //   return n.id === 1 ? { id: 1, name: 'sita' } : n
+  // })
+  // console.log(persons);
+  const nav = useNavigate();
   const { users } = useSelector((state) => state.userSlice);
   const dispatch = useDispatch();
 
@@ -31,7 +42,9 @@ export default function UserList() {
           <p>{user.detail}</p>
 
           <div className="space-x-5">
-            <IconButton size="sm">
+            <IconButton
+              onClick={() => nav(`/update-form/${user.id}`)}
+              size="sm">
               <i className="fas fa-edit" />
             </IconButton>
             <IconButton

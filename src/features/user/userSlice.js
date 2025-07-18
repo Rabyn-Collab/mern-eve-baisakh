@@ -31,4 +31,4 @@ export const userSlice = createSlice({
   }
 });
 
-export const { addUser, removeUser } = userSlice.actions;
+export const { addUser, updateUser, removeUser } = userSlice.actions;
