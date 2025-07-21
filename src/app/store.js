@@ -17,6 +17,7 @@ export const store = configureStore({
     [articlesApi.reducerPath]: articlesApi.reducer
   },
 
+  // caching /polling /invalidation
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat([
       articlesApi.middleware
