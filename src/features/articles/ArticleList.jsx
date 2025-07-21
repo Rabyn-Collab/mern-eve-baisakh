@@ -8,8 +8,9 @@ export default function ArticleList() {
   // const [a,b, c] = numbers;
 
 
-  const { data, isLoading, error } = useGetArticlesQuery();
+  const { data, isLoading, error, isFetching } = useGetArticlesQuery();
   // const [getArticle, { data, isLoading, error }] = useLazyGetArticlesQuery();
+
 
 
   if (isLoading) {
@@ -24,14 +25,21 @@ export default function ArticleList() {
       {/* <Button onClick={() => getArticle()}>Call Lazy</Button> */}
 
       {data && data.map((article) => {
-        return <div key={article.id} className="shadow-lg p-5">
-          <Typography variant="h5" color="blue-gray">{article.title}</Typography>
-          <p>{article.detail}</p>
+        return <div key={article.id} className="shadow-lg p-5 space-y-2">
           <div>
-            <Typography color="blue-gray">{article.author}</Typography>
+            <img className="h-60" src={article.image} alt="" />
           </div>
+          <div className="space-y-3">
+            <Typography variant="h5" color="blue-gray">{article.title}</Typography>
+            <p>{article.detail}</p>
+            <div>
+              <Typography color="blue-gray">Author:- {article.author}</Typography>
+            </div>
+          </div>
+
         </div>
       })}
+
 
     </div>
   )
