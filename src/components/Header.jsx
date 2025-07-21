@@ -6,7 +6,7 @@ export default function Header() {
       <h1 className="text-2xl">Logo</h1>
 
       <nav>
-        <NavLink to={'/user-form'}>UserForm</NavLink>
+        <NavLink to={'/article-form'}>Article Form</NavLink>
       </nav>
 
     </div>

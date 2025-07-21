@@ -3,6 +3,7 @@ import { RouterProvider } from 'react-router-dom';
 import RootLayout from './components/RootLayout';
 import NotFound from './features/not-found/NotFound';
 import ArticleList from './features/articles/ArticleList';
+import ArticleForm from './features/articles/ArticleForm';
 
 
 export default function App() {
@@ -14,6 +15,10 @@ export default function App() {
         {
           index: true,
           element: <ArticleList />
+        },
+        {
+          path: 'article-form',
+          element: <ArticleForm />
         },
 
         {
