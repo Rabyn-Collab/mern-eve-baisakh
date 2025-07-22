@@ -1,11 +1,15 @@
 import { Button, Typography } from "@material-tailwind/react";
 import { useGetArticlesQuery, useLazyGetArticlesQuery } from "./articlesApi"
+import RemoveArticle from "./RemoveArticle";
+import { useNavigate } from "react-router";
 
 
 export default function ArticleList() {
 
   // const numbers = [11,22,33,44];
   // const [a,b, c] = numbers;
+
+  const nav = useNavigate();
 
 
   const { data, isLoading, error, isFetching } = useGetArticlesQuery();
@@ -35,6 +39,14 @@ export default function ArticleList() {
             <div>
               <Typography color="blue-gray">Author:- {article.author}</Typography>
             </div>
+          </div>
+
+          <div className="flex justify-end gap-9">
+            <Button onClick={() => nav(`/update-article-form/${article.id}`)} color="green" size="sm">
+              <i className="fas fa-edit" />
+            </Button>
+
+            <RemoveArticle id={article.id} />
           </div>
 
         </div>

@@ -1,42 +1,42 @@
 import { Button, Input, Textarea } from "@material-tailwind/react";
 import { Formik } from "formik";
-import { useAddArticleMutation } from "./articlesApi";
-import * as Yup from 'yup';
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
+import { valSchema } from "./ArticleForm";
+import { useGetArticleQuery } from "./articlesApi";
 
-export const valSchema = Yup.object({
-  title: Yup.string().min(10).required(),
-  detail: Yup.string().min(15).required(),
-  image: Yup.string().url()
 
-    // .matches(/^https?:\/\/.*(unsplash|cdn|images|img).*$/i, 'Must be a valid image link (e.g., from Unsplash, CDN, etc.)')
 
-    .required(),
-  author: Yup.string().min(5).required()
-});
-
-export default function ArticleForm() {
-  const [addFunc, { isLoading }] = useAddArticleMutation();
+export default function UpdateArticleForm() {
+  const { id } = useParams();
+  const { data, isLoading, error } = useGetArticleQuery(id);
   const nav = useNavigate();
+  console.log(data);
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
+  if (error) {
+    return <h1 className="text-pink-700 font-bold"> {error.data || error.message}</h1>
+  }
+
   return (
     <div>
       <Formik
         initialValues={{
-          title: '',
-          detail: '',
-          image: '',
-          author: ''
+          title: data.title,
+          detail: data.detail,
+          image: data.image,
+          author: data.author
         }}
         onSubmit={async (val) => {
 
-          try {
-            await addFunc(val).unwrap();
-            toast.success('added successfully');
-            nav(-1);
-          } catch (err) {
-            toast.error(err?.message || err.data);
-          }
+          // try {
+          //   await addFunc(val).unwrap();
+          //   toast.success('added successfully');
+          //   nav(-1);
+          // } catch (err) {
+          //   toast.error(err?.message || err.data);
+          // }
 
         }}
 
@@ -51,6 +51,7 @@ export default function ArticleForm() {
             <div>
               <Input
                 name="title"
+                value={values.title}
                 onChange={handleChange}
                 label="Title" />
               {touched.title && errors.title && <p className="text-red-500">{errors.title}</p>}
@@ -58,6 +59,7 @@ export default function ArticleForm() {
             <div>
               <Textarea
                 name="detail"
+                value={values.detail}
                 onChange={handleChange}
                 label="Detail" />
               {touched.detail && errors.detail && <p className="text-red-500">{errors.detail}</p>}
@@ -65,6 +67,7 @@ export default function ArticleForm() {
             <div>
               <Input
                 name="image"
+                value={values.image}
                 onChange={handleChange}
                 label="Image" />
               {touched.image && errors.image && <p className="text-red-500">{errors.image}</p>}
@@ -72,12 +75,13 @@ export default function ArticleForm() {
             <div>
               <Input
                 name="author"
+                value={values.author}
                 onChange={handleChange}
                 label="Author" />
               {touched.author && errors.author && <p className="text-red-500">{errors.author}</p>}
             </div>
 
-            <Button type="submit" loading={isLoading}>Submit</Button>
+            <Button type="submit" >Submit</Button>
           </form>
         )}
       </Formik>
