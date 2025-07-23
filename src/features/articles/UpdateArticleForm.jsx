@@ -3,15 +3,17 @@ import { Formik } from "formik";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router";
 import { valSchema } from "./ArticleForm";
-import { useGetArticleQuery } from "./articlesApi";
+import { useGetArticleQuery, useUpdateArticleMutation } from "./articlesApi";
 
 
 
 export default function UpdateArticleForm() {
   const { id } = useParams();
   const { data, isLoading, error } = useGetArticleQuery(id);
+  const [updateArticle, { isLoading: isLoad }] = useUpdateArticleMutation();
+
   const nav = useNavigate();
-  console.log(data);
+
   if (isLoading) {
     return <div>Loading...</div>
   }
@@ -30,13 +32,17 @@ export default function UpdateArticleForm() {
         }}
         onSubmit={async (val) => {
 
-          // try {
-          //   await addFunc(val).unwrap();
-          //   toast.success('added successfully');
-          //   nav(-1);
-          // } catch (err) {
-          //   toast.error(err?.message || err.data);
-          // }
+          try {
+            await updateArticle({
+              id: id,
+              data: val
+            }).unwrap();
+            toast.success('updated successfully');
+            nav(-1);
+          } catch (err) {
+            console.log(err);
+            toast.error(err?.error);
+          }
 
         }}
 
@@ -81,7 +87,7 @@ export default function UpdateArticleForm() {
               {touched.author && errors.author && <p className="text-red-500">{errors.author}</p>}
             </div>
 
-            <Button type="submit" >Submit</Button>
+            <Button loading={isLoad} type="submit" >Submit</Button>
           </form>
         )}
       </Formik>
