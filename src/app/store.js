@@ -1,26 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { articlesApi } from "../features/articles/articlesApi";
-
-
-// const per = {
-//   name: 'ram',
-//   age: 90
-// };
-
-// const s = {
-//   [per.name]: 'ram'
-// };
+import { recipeApi } from "../features/recipe/recipeApi";
 
 export const store = configureStore({
 
   reducer: {
-    [articlesApi.reducerPath]: articlesApi.reducer
+    [recipeApi.reducerPath]: recipeApi.reducer
   },
 
   // caching /polling /invalidation
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat([
-      articlesApi.middleware
+      recipeApi.middleware
     ]),
 
 

@@ -2,9 +2,9 @@ import { createBrowserRouter } from 'react-router'
 import { RouterProvider } from 'react-router-dom';
 import RootLayout from './components/RootLayout';
 import NotFound from './features/not-found/NotFound';
-import ArticleList from './features/articles/ArticleList';
-import ArticleForm from './features/articles/ArticleForm';
-import UpdateArticleForm from './features/articles/UpdateArticleForm';
+
+import Home from './features/home/Home';
+import RecipeSearch from './features/search/RecipeSearch';
 
 
 export default function App() {
@@ -15,15 +15,14 @@ export default function App() {
       children: [
         {
           index: true,
-          element: <ArticleList />
+          element: <Home />
+
         },
+
         {
-          path: 'article-form',
-          element: <ArticleForm />
-        },
-        {
-          path: 'update-article-form/:id',
-          element: <UpdateArticleForm />
+          path: 'recipes/search',
+          element: <RecipeSearch />
+
         },
 
         {
