@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div>
 
-      <SearchInput />
+      <SearchInput isNav={true} />
       <RecipeList />
 
     </div>
