@@ -1,16 +1,21 @@
-import fs from 'fs';
+import express from 'express';
+import productRoutes from './routes/productRoutes.js';
+const port = 5000;
+const app = express();
+
+app.use(express.json());
+
+app.get('/', (req, res) => {
+  return res.status(200).json({ message: 'welcome to backened' });
+});
+
+
+app.use('/products', productRoutes);
 
 
 
 
 
-
-if (fs.existsSync('./folder/sample.txt')) {
-  fs.unlink('./folder/sample.txt', (err) => {
-    console.log(err);
-  })
-} else {
-  fs.writeFile('./folder/sample.txt', 'hello jee', 'utf-8', (err) => {
-    console.log(err);
-  })
-}
+app.listen(port, () => {
+  console.log('server is running');
+})
