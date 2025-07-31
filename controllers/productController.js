@@ -1,5 +1,6 @@
 import Product from "../models/Product.js";
 import fs from 'fs';
+import mongoose from "mongoose";
 
 
 
@@ -48,13 +49,61 @@ export const addProduct = async (req, res) => {
 
 
 
-export const updateProduct = (req, res) => {
+export const updateProduct = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    if (!mongoose.isValidObjectId(id)) return res.status(400).json({ message: 'invalid product id' });
+
+    const product = await Product.findById(id);
+
+    if (!product) return res.status(404).json({ message: 'product not found' });
+
+    product.title = req.body?.title || product.title;
+    product.description = req.body?.description || product.description;
+    product.stock = req.body?.stock || product.stock;
+    product.category = req.body?.category || product.category;
+    product.brand = req.body?.brand || product.brand;
+    product.price = req.body?.price || product.price;
+
+
+    if (req.imagePath) {
+      fs.unlink(`./uploads/${product.image}`, async (err) => {
+        product.image = req.imagePath;
+        if (err) return res.status(400).json({ message: `${err}` });
+        await product.save();
+        return res.status(200).json({ message: 'product updated Successfully' });
+      })
+    } else {
+      await product.save();
+      return res.status(200).json({ message: 'product updated Successfully' });
+    }
+
+  } catch (err) {
+    return res.status(500).json({ message: `${err}` })
+
+  }
+
+
 
 }
 
 
 
 
-export const removeProduct = (req, res) => {
+export const removeProduct = async (req, res) => {
+  const { id } = req.params;
+  if (!mongoose.isValidObjectId(id)) return res.status(400).json({ message: 'invalid product id' });
+
+  const product = await Product.findById(id);
+
+  if (!product) return res.status(404).json({ message: 'product not found' });
+
+  fs.unlink(`./uploads/${product.image}`, async (err) => {
+    if (err) return res.status(400).json({ message: `${err}` });
+
+    await Product.findByIdAndDelete(id);
+    return res.status(200).json({ message: 'product removed Successfully' });
+  })
 
 }
