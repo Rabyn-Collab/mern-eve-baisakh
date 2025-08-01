@@ -1,5 +1,6 @@
 import express from 'express';
 import productRoutes from './routes/productRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 import mongoose from 'mongoose';
 import fileUpload from 'express-fileupload';
 
@@ -13,7 +14,7 @@ mongoose.connect('mongodb+srv://dbUser:dbuser@cluster0.nxeztd6.mongodb.net/Shop'
   })
 }).catch((err) => {
   console.log(err);
-})
+});
 
 
 app.use(express.json());
@@ -28,6 +29,7 @@ app.get('/', (req, res) => {
 
 
 app.use('/products', productRoutes);
+app.use('/users', userRoutes);
 
 
 
