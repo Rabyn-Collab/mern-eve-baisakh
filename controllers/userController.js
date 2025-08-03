@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import User from '../models/User.js';
+import jwt from 'jsonwebtoken';
 
 
 export const loginUser = async (req, res) => {
@@ -11,8 +12,17 @@ export const loginUser = async (req, res) => {
 
     const passMatch = bcrypt.compareSync(password, isExist.password);
     if (!passMatch) return res.status(401).json({ message: 'invalid credentials' });
+    const token = jwt.sign({
+      id: isExist.id,
+      role: isExist.role
+    }, 'secret');
 
-    return res.status(200).json({ message: 'logged in Successfully' });
+    return res.status(200).json({
+      token,
+      email: isExist.email,
+      role: isExist.role,
+      username: isExist.username
+    });
   } catch (err) {
     return res.status(500).json({ err: `${err}` });
   }
