@@ -12,18 +12,19 @@ import {
 import {
   UserCircleIcon,
   ChevronDownIcon,
-  Cog6ToothIcon,
-  InboxArrowDownIcon,
-  LifebuoyIcon,
   PowerIcon,
+  ShoppingBagIcon,
+  HomeModernIcon,
 } from "@heroicons/react/24/solid";
-import { useNavigate } from "react-router";
+import { NavLink, useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { logOutUser } from "../features/user/userSlice.js";
 
 
 
 export default function Header() {
+  const { user } = useSelector((state) => state.userSlice);
 
-  const nav = useNavigate();
 
 
   return (
@@ -38,47 +39,63 @@ export default function Header() {
         </Typography>
 
 
+        {user === null ?
+          <NavLink to={'/login'}>
+            <Button
 
-        <Button
-          onClick={() => nav('/login')}
-          size="sm" variant="text">
-          <span>Log In</span>
-        </Button>
-        <ProfileMenu />
+              size="sm" variant="text">
+              <span>Log In</span>
+            </Button>
+          </NavLink>
+          :
+          <ProfileMenu user={user} />}
+
       </div>
 
     </Navbar>
   );
 }
 
-// profile menu component
-const profileMenuItems = [
+
+const userMenuItems = [
   {
-    label: "My Profile",
+    label: "Profile",
     icon: UserCircleIcon,
   },
   {
-    label: "Edit Profile",
-    icon: Cog6ToothIcon,
+    label: 'Cart',
+    icon: ShoppingBagIcon
   },
-  {
-    label: "Inbox",
-    icon: InboxArrowDownIcon,
-  },
-  {
-    label: "Help",
-    icon: LifebuoyIcon,
-  },
+
   {
     label: "Sign Out",
     icon: PowerIcon,
   },
 ];
 
-function ProfileMenu() {
+const adminMenuItems = [
+  {
+    label: "Profile",
+    icon: UserCircleIcon,
+  },
+  {
+    label: 'Admin Panel',
+    icon: HomeModernIcon
+  },
+
+  {
+    label: "Sign Out",
+    icon: PowerIcon,
+  },
+];
+
+function ProfileMenu({ user }) {
+  const menus = user?.role === 'Admin' ? adminMenuItems : userMenuItems;
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const dispatch = useDispatch();
 
   const closeMenu = () => setIsMenuOpen(false);
+  const nav = useNavigate();
 
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
@@ -103,12 +120,26 @@ function ProfileMenu() {
         </Button>
       </MenuHandler>
       <MenuList className="p-1">
-        {profileMenuItems.map(({ label, icon }, key) => {
-          const isLastItem = key === profileMenuItems.length - 1;
+        {menus.map(({ label, icon }, key) => {
+          const isLastItem = key === menus.length - 1;
           return (
             <MenuItem
               key={label}
-              onClick={closeMenu}
+              onClick={() => {
+
+                switch (label) {
+                  case 'Profile': nav('/profile'); break;
+                  case 'Cart': nav('/cart'); break;
+                  case 'Admin Panel':
+                    nav('/admin-panel');
+                    break;
+                  case 'Sign Out':
+                    dispatch(logOutUser());
+                    break;
+                }
+                closeMenu();
+
+              }}
               className={`flex items-center gap-2 rounded ${isLastItem
                 ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
                 : ""

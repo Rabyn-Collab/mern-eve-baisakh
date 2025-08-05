@@ -5,6 +5,8 @@ import { useNavigate } from "react-router";
 import * as Yup from 'yup';
 import { useLoginUserMutation } from "./authApi.js";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { addUser } from "../user/userSlice.js";
 
 const loginSchema = Yup.object({
   email: Yup.string().email().required(),
@@ -14,7 +16,7 @@ const loginSchema = Yup.object({
 export default function Login() {
   const [loginUser, { isLoading }] = useLoginUserMutation();
   const nav = useNavigate();
-
+  const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   return (
     <div className="p-5 max-w-[400px]">
@@ -28,10 +30,10 @@ export default function Login() {
         onSubmit={async (val) => {
           try {
             const response = await loginUser(val).unwrap();
-            console.log(response);
+            dispatch(addUser(response));
             toast.success('Login successful');
+            nav(-1);
           } catch (err) {
-            console.log(err);
             toast.error(err.data.message);
           }
 
