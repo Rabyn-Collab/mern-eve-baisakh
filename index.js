@@ -3,6 +3,7 @@ import productRoutes from './routes/productRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import mongoose from 'mongoose';
 import fileUpload from 'express-fileupload';
+import cors from 'cors';
 
 const port = 5000;
 const app = express();
@@ -16,8 +17,10 @@ mongoose.connect('mongodb+srv://dbUser:dbuser@cluster0.nxeztd6.mongodb.net/Shop'
   console.log(err);
 });
 
+app.use(cors());
 
 app.use(express.json());
+app.use(express.static('uploads'))
 app.use(fileUpload({
   // limits: { fileSize: 50 * 1024 * 1024 },
   // abortOnLimit: true
