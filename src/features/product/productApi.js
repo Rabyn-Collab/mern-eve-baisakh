@@ -14,7 +14,21 @@ export const productApi = createApi({
       query: () => ({
         url: '/products',
         method: 'GET'
-      })
+      }),
+      providesTags: ['Products']
+    }),
+
+    addProduct: builder.mutation({
+      // {data: {}, token: 'sd;lfksdl'}
+      query: (query) => ({
+        url: '/products',
+        body: query.data,
+        headers: {
+          Authorization: query.token
+        },
+        method: 'POST'
+      }),
+      invalidatesTags: ['Products']
     })
 
 
@@ -23,4 +37,4 @@ export const productApi = createApi({
 
 });
 
-export const { useGetProductsQuery } = productApi;
+export const { useGetProductsQuery, useAddProductMutation } = productApi;

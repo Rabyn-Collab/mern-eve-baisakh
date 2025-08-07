@@ -6,6 +6,7 @@ import Home from './features/home/Home.jsx';
 import Login from './features/auth/Login.jsx';
 import Register from './features/auth/Register.jsx';
 import AdminPage from './features/admin/AdminPage.jsx';
+import ProductAdd from './features/admin/ProductAdd.jsx';
 
 export default function App() {
   const router = createBrowserRouter([
@@ -21,6 +22,14 @@ export default function App() {
           path: 'admin-panel',
           element: <AdminPage />
         },
+
+
+        {
+          path: 'product-add',
+          element: <ProductAdd />
+        },
+
+
         {
           path: 'login',
           element: <Login />

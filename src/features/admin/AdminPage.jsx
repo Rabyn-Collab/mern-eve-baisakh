@@ -1,3 +1,4 @@
+import { NavLink } from "react-router";
 import { baseUrl } from "../../app/apiUrl.js";
 import { useGetProductsQuery } from "../product/productApi.js"
 
@@ -19,7 +20,10 @@ export default function AdminPage() {
   return (
     <div>
       <div className="flex mb-4 justify-end">
-        <Button color="purple">Add Product</Button>
+        <NavLink to={'/product-add'}>
+          <Button color="purple">Add Product</Button>
+        </NavLink>
+
       </div>
 
       {data && <Card className="h-full w-full overflow-scroll">
