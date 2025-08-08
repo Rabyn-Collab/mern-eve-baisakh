@@ -13,15 +13,20 @@ export const getProducts = async (req, res) => {
     })
 
   } catch (err) {
-    return res.status(500).json({ err: `${err}` })
+    return res.status(500).json({ message: `${err}` })
   }
 }
 
 
 
-export const getProduct = (req, res) => {
+export const getProduct = async (req, res) => {
   const { id } = req.params;
-  return res.status(200).json({ message: 'product' });
+  try {
+    const product = await Product.findById(id);
+    return res.status(200).json(product)
+  } catch (error) {
+    return res.status(500).json({ message: `${error}` })
+  }
 }
 
 
@@ -41,7 +46,7 @@ export const addProduct = async (req, res) => {
   } catch (error) {
     fs.unlink(`./uploads/${req.imagePath}`, (err) => {
       if (err) console.log(err);
-      return res.status(500).json({ err: `${error}` })
+      return res.status(500).json({ message: `${error}` })
     })
 
   }
