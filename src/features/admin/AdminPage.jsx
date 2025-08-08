@@ -1,8 +1,9 @@
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import { baseUrl } from "../../app/apiUrl.js";
 import { useGetProductsQuery } from "../product/productApi.js"
 
 import { Avatar, Button, Card, IconButton, Typography } from "@material-tailwind/react";
+import RemoveProduct from "./RemoveProduct.jsx";
 
 const TABLE_HEAD = ["Name", "Price", "Product_Id", "Edit", "Delete"];
 
@@ -10,13 +11,12 @@ const TABLE_HEAD = ["Name", "Price", "Product_Id", "Edit", "Delete"];
 
 
 export default function AdminPage() {
-
+  const nav = useNavigate();
   const { isLoading, error, data } = useGetProductsQuery();
   if (isLoading) return <h1>Loading....</h1>
   if (error) return <h1>{error.data}</h1>
 
 
-  console.log(data);
   return (
     <div>
       <div className="flex mb-4 justify-end">
@@ -83,14 +83,15 @@ export default function AdminPage() {
                     </Typography>
                   </td>
                   <td className={classes}>
-                    <IconButton size="sm" color="green">
+                    <IconButton
+                      onClick={() => nav(`/product-update/${_id}`)}
+                      size="sm" color="green">
                       <i className="fas fa-edit" />
                     </IconButton>
                   </td>
                   <td className={classes}>
-                    <IconButton size="sm" color="pink">
-                      <i className="fas fa-trash" />
-                    </IconButton>
+                    <RemoveProduct id={_id} />
+
                   </td>
                 </tr>
               );

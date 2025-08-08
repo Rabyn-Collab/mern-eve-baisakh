@@ -1,50 +1,65 @@
 import { Button, Input, Option, Select, Textarea } from "@material-tailwind/react";
 import { Formik } from "formik";
-import * as Yup from 'yup';
-import { useAddProductMutation } from "../product/productApi.js";
+import { useGetProductQuery, useUpdateProductMutation } from "../product/productApi.js";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
+import { baseUrl } from "../../app/apiUrl.js";
+import * as Yup from 'yup';
 
-export const valSchema = Yup.object({
+
+const valSchema = Yup.object({
   title: Yup.string().min(10).required(),
   price: Yup.number().required(),
   stock: Yup.number().required(),
   description: Yup.string().min(10).max(500).required(),
   category: Yup.string().required(),
-  image: Yup.mixed().required().test('fileType', 'Unsupported File Format', (val) => ['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'image/gif'].includes(val.type)),
+  image: Yup.mixed().test('fileType', 'Unsupported File Format', (val) => val ? ['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'image/gif'].includes(val.type) : true),
   brand: Yup.string().required(),
 })
-export default function ProductAdd() {
+
+export default function ProductUpdate() {
+  const { id } = useParams();
+  const { isLoading, data, error } = useGetProductQuery(id);
+
+  const [updateProduct, { isLoading: isLoad }] = useUpdateProductMutation();
   const nav = useNavigate();
   const { user } = useSelector((state) => state.userSlice);
-  const [addUser, { isLoading }] = useAddProductMutation();
+
+  if (isLoading) return <h1>Loading....</h1>
+  if (error) return <h1>{error.data}</h1>
+
+
   return (
     <div>
 
       <Formik
         initialValues={{
-          title: '',
-          price: '',
-          stock: '',
-          description: '',
-          category: '',
+          title: data.title,
+          price: data.price,
+          stock: data.stock,
+          description: data.description,
+          category: data.category,
           image: '',
-          brand: '',
-          imagePrev: ''
+          brand: data.brand,
+          imagePrev: data.image
         }}
         onSubmit={async (val) => {
+
           const formData = new FormData();
-          formData.append('image', val.image);
+
           formData.append('title', val.title);
           formData.append('price', Number(val.price));
           formData.append('stock', Number(val.stock));
           formData.append('description', val.description);
           formData.append('category', val.category);
           formData.append('brand', val.brand);
+          if (val.image) {
+            formData.append('image', val.image);
+          }
           try {
-            await addUser({ data: formData, token: user.token }).unwrap();
-            toast.success('Product added successfully');
+            await updateProduct({ data: formData, token: user.token, id: id }).unwrap();
+            toast.success('Product updated successfully');
             nav(-1);
           } catch (err) {
             console.log(err);
@@ -91,6 +106,7 @@ export default function ProductAdd() {
 
             <div>
               <Select
+                value={values.category}
                 onChange={(e) => setFieldValue('category', e)}
                 name="category" label="Category">
                 <Option value="men's clothing">men's clothing</Option>
@@ -103,6 +119,7 @@ export default function ProductAdd() {
 
             <div>
               <Select
+                value={values.brand}
                 onChange={(e) => setFieldValue('brand', e)}
                 name="brand" label="Brand">
                 <Option value="nike">nike</Option>
@@ -141,11 +158,11 @@ export default function ProductAdd() {
               />
               {errors.image && touched.image && <h1 className="text-red-500">{errors.image}</h1>}
 
-              {!errors.image && values.imagePrev && <img src={values.imagePrev} className="h-[200px] mt-4" alt="" />}
+              {!errors.image && values.imagePrev && <img src={values.image ? values.imagePrev : `${baseUrl}/${values.imagePrev}`} className="h-[200px] mt-4" alt="" />}
 
             </div>
 
-            <Button loading={isLoading} type="submit">Submit</Button>
+            <Button loading={isLoad} type="submit">Submit</Button>
 
 
           </form>
