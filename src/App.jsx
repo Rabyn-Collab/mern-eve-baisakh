@@ -8,6 +8,7 @@ import Register from './features/auth/Register.jsx';
 import AdminPage from './features/admin/AdminPage.jsx';
 import ProductAdd from './features/admin/ProductAdd.jsx';
 import ProductUpdate from './features/admin/ProductUpdate.jsx';
+import ProductDetail from './features/product/ProductDetail.jsx';
 
 export default function App() {
   const router = createBrowserRouter([
@@ -24,7 +25,6 @@ export default function App() {
           element: <AdminPage />
         },
 
-
         {
           path: 'product-add',
           element: <ProductAdd />
@@ -33,6 +33,11 @@ export default function App() {
         {
           path: 'product-update/:id',
           element: <ProductUpdate />
+        },
+
+        {
+          path: 'product-detail/:id',
+          element: <ProductDetail />
         },
 
 

@@ -62,6 +62,7 @@ export default function Register() {
             <div>
               <div className="relative flex w-full ">
                 <Input
+                  name="password"
                   type={show ? 'text' : 'password'}
                   label="Password"
                   value={values.password}

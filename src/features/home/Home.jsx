@@ -1,8 +1,11 @@
+import ProductList from "../product/ProductList.jsx";
 
 
 export default function Home() {
   return (
-    <div>
+    <div className="p-5">
+
+      <ProductList />
 
     </div>
   )
