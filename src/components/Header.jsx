@@ -128,11 +128,18 @@ function ProfileMenu({ user }) {
               onClick={() => {
 
                 switch (label) {
-                  case 'Profile': nav('/profile'); break;
-                  case 'Cart': nav('/cart'); break;
+                  case 'Profile':
+                    nav('/profile');
+                    break;
+
+                  case 'Cart':
+                    nav('/carts');
+                    break;
+
                   case 'Admin Panel':
                     nav('/admin-panel');
                     break;
+
                   case 'Sign Out':
                     dispatch(logOutUser());
                     break;

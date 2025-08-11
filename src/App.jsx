@@ -9,6 +9,7 @@ import AdminPage from './features/admin/AdminPage.jsx';
 import ProductAdd from './features/admin/ProductAdd.jsx';
 import ProductUpdate from './features/admin/ProductUpdate.jsx';
 import ProductDetail from './features/product/ProductDetail.jsx';
+import CartPage from './features/carts/CartPage.jsx';
 
 export default function App() {
   const router = createBrowserRouter([
@@ -38,6 +39,11 @@ export default function App() {
         {
           path: 'product-detail/:id',
           element: <ProductDetail />
+        },
+
+        {
+          path: 'carts',
+          element: <CartPage />
         },
 
 

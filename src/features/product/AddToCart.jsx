@@ -1,13 +1,29 @@
 import { Button, IconButton } from "@material-tailwind/react";
 import { useState } from "react"
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import { setToCart } from "../carts/cartSlice.js";
 
 export default function AddToCart({ product }) {
   const { user } = useSelector((state) => state.userSlice);
-  const [count, setCount] = useState(1);
+  const { carts } = useSelector((state) => state.cartSlice);
+  const cart = carts.find((cart) => cart.id === product._id);
+  const [count, setCount] = useState(cart?.qty ?? 1);
+  const nav = useNavigate();
+  const dispatch = useDispatch();
 
+  const addTocart = () => {
+    dispatch(setToCart({
+      id: product._id,
+      title: product.title,
+      price: product.price,
+      image: product.image,
+      qty: count,
+      stock: product.stock
+    }));
+    nav('/carts');
 
-
+  }
 
   return (
     <div className="space-y-6">
@@ -32,7 +48,9 @@ export default function AddToCart({ product }) {
 
       </div>
 
-      <Button disabled={user?.role === 'Admin'}>Add To Cart</Button>
+      <Button
+        onClick={addTocart}
+        disabled={user?.role === 'Admin'}>Add To Cart</Button>
 
 
     </div>
