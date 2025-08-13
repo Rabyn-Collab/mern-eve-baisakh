@@ -50,7 +50,7 @@ export default function AddToCart({ product }) {
 
       <Button
         onClick={addTocart}
-        disabled={user?.role === 'Admin'}>Add To Cart</Button>
+        disabled={user?.role === 'Admin' || product.stock === 0}>{product.stock === 0 ? 'Out of Stock' : 'Add To Cart'}</Button>
 
 
     </div>

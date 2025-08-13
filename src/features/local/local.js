@@ -10,6 +10,9 @@ export const getCartFromLocal = () => {
   return carts === null ? [] : JSON.parse(carts);
 }
 
+export const clearCartFromLocal = () => {
+  localStorage.removeItem('carts');
+}
 
 export const setUserToLocal = (user) => {
   localStorage.setItem('user', JSON.stringify(user));

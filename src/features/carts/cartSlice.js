@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getCartFromLocal, setCartToLocal } from "../local/local.js";
+import { clearCartFromLocal, getCartFromLocal, setCartToLocal } from "../local/local.js";
 
 
 export const cartSlice = createSlice({
@@ -29,10 +29,16 @@ export const cartSlice = createSlice({
       state.carts.splice(action.payload, 1);
       setCartToLocal(state.carts);
 
-    }
+    },
+
+    clearCart: (state, action) => {
+      state.carts = [];
+      clearCartFromLocal();
+
+    },
 
   }
 
 });
 
-export const { setToCart, removeFromCart } = cartSlice.actions;
+export const { setToCart, removeFromCart, clearCart } = cartSlice.actions;
