@@ -3,21 +3,16 @@ import Product from "../models/Product.js";
 
 
 
-export const getOrders = async (req, res) => {
-
-  try {
-    const orders = await Order.find({});
-    return res.status(200).json(orders)
-  } catch (err) {
-    return res.status(500).json({ message: `${err}` })
-  }
-
-}
-
 export const getUserOrders = async (req, res) => {
   try {
-    const orders = await Order.find({ userId: req.userId });
-    return res.status(200).json(orders);
+    if (req.role === 'Admin') {
+      const orders = await Order.find({});
+      return res.status(200).json(orders);
+    } else {
+      const orders = await Order.find({ userId: req.userId });
+      return res.status(200).json(orders);
+    }
+
   } catch (err) {
     return res.status(500).json({ message: `${err}` });
   }

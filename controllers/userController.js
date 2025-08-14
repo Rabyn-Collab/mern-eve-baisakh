@@ -50,3 +50,20 @@ export const registerUser = async (req, res) => {
   }
 
 }
+
+export const updateUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.userId);
+
+    user.username = req.body?.username || user.username;
+    user.email = req.body?.email || user.email;
+
+    await user.save();
+    return res.status(200).json({ message: 'user updated Successfully' });
+
+
+  } catch (error) {
+    return res.status(500).json({ err: `${error}` });
+
+  }
+}
