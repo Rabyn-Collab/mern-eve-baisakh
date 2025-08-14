@@ -10,6 +10,8 @@ import ProductAdd from './features/admin/ProductAdd.jsx';
 import ProductUpdate from './features/admin/ProductUpdate.jsx';
 import ProductDetail from './features/product/ProductDetail.jsx';
 import CartPage from './features/carts/CartPage.jsx';
+import ProfilePage from './features/profile/ProfilePage.jsx';
+import OrderDetail from './features/orders/OrderDetail.jsx';
 
 export default function App() {
   const router = createBrowserRouter([
@@ -39,6 +41,14 @@ export default function App() {
         {
           path: 'product-detail/:id',
           element: <ProductDetail />
+        },
+        {
+          path: 'user-profile',
+          element: <ProfilePage />
+        },
+        {
+          path: 'order-detail/:id',
+          element: <OrderDetail />
         },
 
         {

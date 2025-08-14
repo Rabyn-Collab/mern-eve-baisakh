@@ -8,6 +8,25 @@ export const orderApi = createApi({
 
   endpoints: (builder) => ({
 
+    getOrders: builder.query({
+      query: (token) => ({
+        url: '/orders/users',
+        headers: {
+          Authorization: token
+        },
+        method: 'GET'
+      }),
+      providesTags: ['Order']
+    }),
+
+    getOrderDetail: builder.query({
+      query: (id) => ({
+        url: `/orders/${id}`,
+        method: 'GET'
+      }),
+      providesTags: ['Order']
+    }),
+
     createOrder: builder.mutation({
       query: (query) => ({
         url: '/orders',
@@ -16,7 +35,8 @@ export const orderApi = createApi({
           Authorization: query.token
         },
         method: 'POST'
-      })
+      }),
+      invalidatesTags: ['Order']
     })
 
 
@@ -26,4 +46,4 @@ export const orderApi = createApi({
 
 });
 
-export const { useCreateOrderMutation } = orderApi;
+export const { useCreateOrderMutation, useGetOrdersQuery, useGetOrderDetailQuery } = orderApi;

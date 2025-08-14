@@ -129,7 +129,7 @@ function ProfileMenu({ user }) {
 
                 switch (label) {
                   case 'Profile':
-                    nav('/profile');
+                    nav('/user-profile');
                     break;
 
                   case 'Cart':
