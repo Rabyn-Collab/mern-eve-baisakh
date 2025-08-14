@@ -11,6 +11,18 @@ export const authApi = createApi({
 
   endpoints: (builder) => ({
 
+    updateUser: builder.mutation({
+      query: (query) => ({
+        url: '/users/update',
+        body: query.data,
+        headers: {
+          Authorization: query.token
+        },
+        method: 'PATCH',
+      })
+
+    }),
+
     loginUser: builder.mutation({
       query: (data) => ({
         url: '/users/login',
@@ -36,4 +48,4 @@ export const authApi = createApi({
 
 });
 
-export const { useLoginUserMutation, useRegisterUserMutation } = authApi;
+export const { useLoginUserMutation, useRegisterUserMutation, useUpdateUserMutation } = authApi;
