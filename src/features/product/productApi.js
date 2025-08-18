@@ -7,6 +7,14 @@ export const productApi = createApi({
 
   endpoints: (builder) => ({
 
+    getTop5Products: builder.query({
+      query: () => ({
+        url: '/products/top-5',
+        method: 'GET'
+      }),
+      providesTags: ['Products']
+    }),
+
     getProducts: builder.query({
       query: () => ({
         url: '/products',
@@ -67,4 +75,4 @@ export const productApi = createApi({
 
 });
 
-export const { useGetProductsQuery, useGetProductQuery, useAddProductMutation, useRemoveProductMutation, useUpdateProductMutation } = productApi;
+export const { useGetProductsQuery, useGetProductQuery, useAddProductMutation, useRemoveProductMutation, useUpdateProductMutation, useGetTop5ProductsQuery } = productApi;

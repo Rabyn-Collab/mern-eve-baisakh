@@ -9,6 +9,7 @@ export default function ProductDetail() {
   const { isLoading, error, data } = useGetProductQuery(id);
   if (isLoading) return <h1>Loading....</h1>
   if (error) return <h1>{error.data}</h1>
+
   return (
     <div className="p-5 grid grid-cols-[1.3fr_2fr] gap-16">
 
@@ -20,7 +21,7 @@ export default function ProductDetail() {
         <h1 className="font-semibold text-xl">{data.title}</h1>
         <p className="text-gray-700">Rs.{data.price}</p>
         <p className="text-gray-700">Brand: {data.brand}</p>
-        <Rating readonly value={data.rating} />
+        <Rating readonly value={Math.round(data.rating)} />
 
         <div className="mt-11">
           <AddToCart product={data} />
