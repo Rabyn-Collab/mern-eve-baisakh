@@ -3,6 +3,15 @@ import fs from 'fs';
 import mongoose from "mongoose";
 
 
+export const getTop5Products = async (req, res) => {
+  try {
+    const products = await Product.find({ rating: { $gt: 4 } }).limit(5);
+
+    return res.status(200).json(products);
+  } catch (err) {
+    return res.status(500).json({ message: `${err}` });
+  }
+}
 
 export const getProducts = async (req, res) => {
   const queryObject = { ...req.query };
@@ -11,9 +20,13 @@ export const getProducts = async (req, res) => {
 
   excludedFields.forEach((feild) => {
     delete queryObject[feild];
-  })
+  });
+
+
 
   try {
+
+    // search
     if (req.query.search) {
       const searchText = req.query.search;
       if (brands.includes(searchText)) {
@@ -26,17 +39,37 @@ export const getProducts = async (req, res) => {
 
     }
 
-    const query = Product.find(queryObject);
+    //eq|gt|gte
+    const output = Object.entries(queryObject).reduce((acc, [key, value]) => {
+      const match = key.match(/(.*?)\[(.*?)\]/);
+      if (match) {
+        const field = match[1];
+        const operator = `$${match[2]}`;
+        const parsedValue = isNaN(value) ? value : Number(value);
 
+        acc[field] = { [operator]: parsedValue };
+      } else {
+        acc[key] = value;
+      }
+      return acc;
+    }, {});
+
+
+    const query = Product.find(output);
+
+    //sort
     if (req.query.sort) {
       const sorting = req.query.sort.split(/[\s,]+/).filter(Boolean).join(' ');
       query.sort(sorting);
     }
 
+    //selects
     if (req.query.fields) {
       const fields = req.query.fields.split(/[\s,]+/).filter(Boolean).join(' ');
       query.select(fields);
     }
+
+    //pagination
     const page = req.query.page || 1;
     const limit = req.query.limit || 10;
     const skip = (page - 1) * 10;
