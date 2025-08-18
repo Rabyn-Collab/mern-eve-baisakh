@@ -19,6 +19,7 @@ import {
 import { NavLink, useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { logOutUser } from "../features/user/userSlice.js";
+import SearchInput from "../features/search/SearchInput.jsx";
 
 
 
@@ -30,25 +31,33 @@ export default function Header() {
   return (
     <Navbar className="mx-auto  p-2 lg:rounded-full lg:pl-6">
       <div className="relative mx-auto flex items-center justify-between text-blue-gray-900">
-        <Typography
-          as="a"
-          href="#"
-          className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
-        >
-          Shopy
-        </Typography>
+        <div>
+          <Typography
+            as="a"
+            href="#"
+            className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
+          >
+            Shopy
+          </Typography>
+        </div>
 
 
-        {user === null ?
-          <NavLink to={'/login'}>
-            <Button
+        <SearchInput />
 
-              size="sm" variant="text">
-              <span>Log In</span>
-            </Button>
-          </NavLink>
-          :
-          <ProfileMenu user={user} />}
+
+        <div>
+          {user === null ?
+            <NavLink to={'/login'}>
+              <Button
+
+                size="sm" variant="text">
+                <span>Log In</span>
+              </Button>
+            </NavLink>
+            :
+            <ProfileMenu user={user} />}
+        </div>
+
 
       </div>
 

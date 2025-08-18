@@ -12,6 +12,7 @@ import ProductDetail from './features/product/ProductDetail.jsx';
 import CartPage from './features/carts/CartPage.jsx';
 import ProfilePage from './features/profile/ProfilePage.jsx';
 import OrderDetail from './features/orders/OrderDetail.jsx';
+import SearchPage from './features/search/SearchPage.jsx';
 
 export default function App() {
   const router = createBrowserRouter([
@@ -54,6 +55,12 @@ export default function App() {
         {
           path: 'carts',
           element: <CartPage />
+        },
+
+        {
+          path: 'search-product',
+          element: <SearchPage />
+
         },
 
 
