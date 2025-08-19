@@ -1,12 +1,25 @@
+import { useSearchParams } from "react-router";
+import CircularPagination from "./Pagination.jsx";
 import { useGetProductsQuery } from "./productApi.js"
 import ProductCard from "./ProductCard.jsx";
 
 import { Button, Card, CardBody, CardFooter, CardHeader, Typography } from "@material-tailwind/react";
+import { useEffect } from "react";
 
 
 
 export default function ProductList() {
-  const { isLoading, data, error } = useGetProductsQuery();
+  const [searchParams, setSearchPrams] = useSearchParams();
+  const page = searchParams.get('page') || 1
+  const { isLoading, data, error } = useGetProductsQuery({
+    page
+  });
+
+
+  useEffect(() => {
+    window.scrollTo(0, 300);
+  }, [page])
+
   if (isLoading) return <div className="grid grid-cols-4 gap-5">
 
     <CardPlacehoderSkeleton />
@@ -21,15 +34,19 @@ export default function ProductList() {
   if (error) return <h1>{error.data}</h1>
 
 
+
   return (
-    <div className="grid grid-cols-4 gap-5">
+    <div>
+      <div className="grid grid-cols-4 gap-5">
 
-      {data && data.products.map((product) => {
-        return <ProductCard key={product._id} product={product} />;
-      })}
+        {data && data.products.map((product) => {
+          return <ProductCard key={product._id} product={product} />;
+        })}
 
 
 
+      </div>
+      <CircularPagination page={page} setSearchPrams={setSearchPrams} totalPages={data.totalPages} />
     </div>
   )
 }

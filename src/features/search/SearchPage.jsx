@@ -11,7 +11,6 @@ export default function SearchPage() {
   if (isLoading) return <h1>Loading....</h1>
   if (error) return <h1>{error.data}</h1>
 
-  console.log(data);
 
   return (
     <div className="grid grid-cols-4 gap-5">

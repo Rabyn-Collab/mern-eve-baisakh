@@ -1,9 +1,15 @@
 import { Input } from "@material-tailwind/react";
 import { Formik } from "formik";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate, useSearchParams } from "react-router";
 
 export default function SearchInput() {
+
+  const [searchParams, setSearchParams] = useSearchParams();
   const nav = useNavigate();
+
+  const { pathname } = useLocation();
+
+
   return (
     <div>
       <div className="w-72">
@@ -12,7 +18,13 @@ export default function SearchInput() {
             search: ''
           }}
           onSubmit={(val, { resetForm }) => {
-            nav(`/search-product?search=${val.search}`)
+            if (pathname === '/') {
+              nav(`/search-product?search=${val.search}`)
+            } else {
+              setSearchParams({ search: val.search })
+
+            }
+
 
           }}
         >
