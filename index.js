@@ -18,7 +18,9 @@ mongoose.connect('mongodb+srv://dbUser:dbuser@cluster0.nxeztd6.mongodb.net/Shop'
   console.log(err);
 });
 
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:3000', 'https://mern-eve-baisakh.vercel.app'],
+}));
 
 app.use(express.json());
 app.use(express.static('uploads'))
