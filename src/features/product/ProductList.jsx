@@ -3,21 +3,23 @@ import CircularPagination from "./Pagination.jsx";
 import { useGetProductsQuery } from "./productApi.js"
 import ProductCard from "./ProductCard.jsx";
 
-import { Button, Card, CardBody, CardFooter, CardHeader, Typography } from "@material-tailwind/react";
-import { useEffect } from "react";
+import { Button, Card, CardBody, CardFooter, CardHeader, Option, Select, Typography } from "@material-tailwind/react";
+import { useEffect, useState } from "react";
 
 
 
 export default function ProductList() {
   const [searchParams, setSearchPrams] = useSearchParams();
   const page = searchParams.get('page') || 1
+  const [price, setPrice] = useState('price');
   const { isLoading, data, error } = useGetProductsQuery({
-    page
+    page,
+    sort: price
   });
 
 
   useEffect(() => {
-    window.scrollTo(0, 300);
+    window.scrollTo(0, 0);
   }, [page])
 
   if (isLoading) return <div className="grid grid-cols-4 gap-5">
@@ -37,14 +39,20 @@ export default function ProductList() {
 
   return (
     <div>
+      <div className="flex justify-end">
+        <div className="mb-5 w-[300px] ">
+          <Select onChange={(e) => setPrice(e)} label="Sort By">
+            <Option value="price">Low Price</Option>
+            <Option value="-price">High Price</Option>
+          </Select>
+        </div>
+      </div>
+
       <div className="grid grid-cols-4 gap-5">
 
         {data && data.products.map((product) => {
           return <ProductCard key={product._id} product={product} />;
         })}
-
-
-
       </div>
       <CircularPagination page={page} setSearchPrams={setSearchPrams} totalPages={data.totalPages} />
     </div>
