@@ -1,7 +1,7 @@
 import { Button, IconButton } from "@material-tailwind/react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 
-
+//
 export default function CircularPagination({ page, setSearchPrams, totalPages }) {
 
   const getItemProps = (index) =>
