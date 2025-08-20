@@ -19,7 +19,7 @@ mongoose.connect('mongodb+srv://dbUser:dbuser@cluster0.nxeztd6.mongodb.net/Shop'
 });
 
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://mern-eve-baisakh.vercel.app'],
+  origin: ['http://localhost:5173', 'https://mern-eve-baisakh.vercel.app'],
 }));
 
 app.use(express.json());
