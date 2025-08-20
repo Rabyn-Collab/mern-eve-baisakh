@@ -29,13 +29,11 @@ export default function ProductCard({ product }) {
             Rs.{product.price}
           </Typography>
         </div>
-        <Typography
-          variant="small"
-          color="gray"
-          className="font-normal opacity-75"
+        <p
+          className="font-normal opacity-75 text-gray-600 line-clamp-4"
         >
           {product.description}
-        </Typography>
+        </p>
       </CardBody>
       <CardFooter className="pt-0">
         <Button
