@@ -92,7 +92,13 @@ export const getProducts = async (req, res) => {
 export const getProduct = async (req, res) => {
   const { id } = req.params;
   try {
-    const product = await Product.findById(id);
+    const product = await Product.findById(id).populate({
+      path: 'reviews',
+      populate: {
+        path: 'userId',
+        select: 'username email'
+      }
+    });
     return res.status(200).json(product)
   } catch (error) {
     return res.status(500).json({ message: `${error}` })
@@ -180,5 +186,35 @@ export const removeProduct = async (req, res) => {
     await Product.findByIdAndDelete(id);
     return res.status(200).json({ message: 'product removed Successfully' });
   })
+
+}
+
+
+
+export const addReview = async (req, res) => {
+  const { id } = req.params;
+  if (!mongoose.isValidObjectId(id)) return res.status(400).json({ message: 'invalid product id' });
+  try {
+    const product = await Product.findById(id);
+
+    if (!product) return res.status(404).json({ message: 'product not found' });
+
+    product.reviews.push({
+      userId: req.userId,
+      rating: req.body.rating,
+      comment: req.body.comment
+    });
+    const avg = product.reviews.reduce((acc, review) => acc + review.rating, 0) / product.reviews.length;
+    product.rating = avg;
+    await product.save();
+    return res.status(201).json({ message: 'review added Successfully' });
+
+
+  } catch (err) {
+    return res.status(500).json({ message: `${err}` })
+
+  }
+
+
 
 }
