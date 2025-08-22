@@ -1,13 +1,9 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { baseUrl } from '../../app/apiUrl.js';
+import { mainApi } from '../../app/mainApi.js';
 
 
 
 
-export const authApi = createApi({
-  reducerPath: 'authApi',
-  baseQuery: fetchBaseQuery({ baseUrl: baseUrl }),
-
+export const authApi = mainApi.injectEndpoints({
 
   endpoints: (builder) => ({
 
