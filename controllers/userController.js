@@ -16,7 +16,16 @@ export const loginUser = async (req, res) => {
       id: isExist.id,
       role: isExist.role
     }, 'secret');
-
+    res.cookie(
+      'jwt',
+      token,
+      {
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60 * 24,
+        sameSite: 'none',
+        // secure: true
+      }
+    );
     return res.status(200).json({
       token,
       email: isExist.email,
