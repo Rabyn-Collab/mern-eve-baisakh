@@ -13,6 +13,9 @@ import CartPage from './features/carts/CartPage.jsx';
 import ProfilePage from './features/profile/ProfilePage.jsx';
 import OrderDetail from './features/orders/OrderDetail.jsx';
 import SearchPage from './features/search/SearchPage.jsx';
+import UserRoute from './components/UserRoute.jsx';
+import AdminRoute from './components/AdminRoute.jsx';
+import AuthRoute from './components/AuthRoute.jsx';
 
 export default function App() {
   const router = createBrowserRouter([
@@ -25,37 +28,54 @@ export default function App() {
           element: <Home />
         },
         {
-          path: 'admin-panel',
-          element: <AdminPage />
+          element: <AdminRoute />,
+          children: [
+            {
+              path: 'admin-panel',
+              element: <AdminPage />
+            },
+
+            {
+              path: 'product-add',
+              element: <ProductAdd />
+            },
+
+            {
+              path: 'product-update/:id',
+              element: <ProductUpdate />
+            },
+
+            {
+              path: 'product-detail/:id',
+              element: <ProductDetail />
+            },
+          ]
         },
 
+
+
+        // user routes
         {
-          path: 'product-add',
-          element: <ProductAdd />
+          element: <UserRoute />,
+          children: [
+            {
+              path: 'user-profile',
+              element: <ProfilePage />
+            },
+            {
+              path: 'order-detail/:id',
+              element: <OrderDetail />
+            },
+
+            {
+              path: 'carts',
+              element: <CartPage />
+            },
+          ]
         },
 
-        {
-          path: 'product-update/:id',
-          element: <ProductUpdate />
-        },
 
-        {
-          path: 'product-detail/:id',
-          element: <ProductDetail />
-        },
-        {
-          path: 'user-profile',
-          element: <ProfilePage />
-        },
-        {
-          path: 'order-detail/:id',
-          element: <OrderDetail />
-        },
 
-        {
-          path: 'carts',
-          element: <CartPage />
-        },
 
         {
           path: 'search-product',
@@ -63,15 +83,24 @@ export default function App() {
 
         },
 
+        {
+          element: <AuthRoute />,
+          children: [
+            {
+              path: 'login',
+              element: <Login />
+            },
+            {
+              path: 'register',
+              element: <Register />
+            },
+          ]
+        },
 
-        {
-          path: 'login',
-          element: <Login />
-        },
-        {
-          path: 'register',
-          element: <Register />
-        },
+
+
+
+
 
 
         {

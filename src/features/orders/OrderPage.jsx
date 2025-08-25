@@ -11,7 +11,9 @@ export default function OrderPage({ user }) {
 
   const { isLoading, error, data } = useGetOrdersQuery(user.token);
   if (isLoading) return <h1>Loading....</h1>
-  if (error) return <h1>{error.data}</h1>
+  if (error) return <h1>{error.data.message}</h1>
+
+
 
 
   return (
