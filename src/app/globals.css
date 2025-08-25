@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+
+
+@layer base {
+  h1 {
+    @apply text-2xl font-semibold;
+  }
+}
