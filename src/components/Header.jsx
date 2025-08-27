@@ -1,13 +1,14 @@
-import Link from "next/link.js";
+import Link from 'next/link.js'
+import React from 'react'
 
 export default function Header() {
   return (
-    <div className="bg-black text-white px-4 py-2 flex items-baseline justify-between">
+    <div>
 
-      <h1>Next Js</h1>
-
-      <nav>
+      <h1>Logo</h1>
+      <nav className='space-x-5'>
         <Link href={'/about'}>About</Link>
+        <Link href={'/users'}>Users</Link>
       </nav>
 
     </div>

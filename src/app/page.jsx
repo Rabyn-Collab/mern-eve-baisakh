@@ -1,13 +1,16 @@
 import React from 'react'
+import { Button } from '../components/ui/button.jsx'
+import { Avatar, AvatarImage } from '../components/ui/avatar.jsx'
 
 export default function Page() {
-  console.log('hello jee');
   return (
     <div>
 
-      <h1>hello jee</h1>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates aliquid a quod perspiciatis ratione temporibus quos totam eveniet nulla autem. Nam eveniet sapiente vitae optio porro tempore dolores laborum quaerat.</p>
-
+      <h1>Hello Jee</h1>
+      <Button>Click Me</Button>
+      <Avatar>
+        <AvatarImage src="https://github.com/shadcn.png" />
+      </Avatar>
     </div>
   )
 }

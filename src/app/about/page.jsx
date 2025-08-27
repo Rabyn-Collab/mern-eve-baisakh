@@ -1,11 +1,9 @@
+import React from 'react'
 
 export default function Page() {
   return (
     <div>
-
-      <h1>hello jee</h1>
-      <p>this is about page</p>
-
+      <h1>This is About page</h1>
     </div>
   )
 }
