@@ -7,8 +7,7 @@ export default function Header() {
 
       <h1>Logo</h1>
       <nav className='space-x-5'>
-        <Link href={'/about'}>About</Link>
-        <Link href={'/users'}>Users</Link>
+
       </nav>
 
     </div>
