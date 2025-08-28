@@ -1,6 +1,6 @@
 import Header from "../components/Header.jsx";
 import "./globals.css";
-
+import { Toaster } from "react-hot-toast";
 
 
 export default function RootLayout({ children }) {
@@ -9,6 +9,7 @@ export default function RootLayout({ children }) {
       <body>
         <div>
           <Header />
+          <Toaster />
           {children}
         </div>
 

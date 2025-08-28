@@ -3,10 +3,13 @@ import React from 'react'
 
 export default function Header() {
   return (
-    <div>
+    <div className='flex justify-between px-5'>
 
       <h1>Logo</h1>
       <nav className='space-x-5'>
+
+        <Link href={'/form/add'}>Add Employee</Link>
+
 
       </nav>
 
