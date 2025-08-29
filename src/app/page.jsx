@@ -9,18 +9,15 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import Link from 'next/link.js';
-import Counter from '../components/Counter.jsx';
 
 export default async function Page() {
   const response = await axios.get('https://60f3af443cb0870017a8a007.mockapi.io/employees');
   const data = response.data;
 
-  const func = async () => {
-    'use server';
-    console.log('hello');
-  }
+
   return (
     <div className='p-5'>
+      <h1>This is Next Js</h1>
       {data.map((employee) => {
         return <Card key={employee.id} className={'mb-5'}>
           <CardHeader>
@@ -29,12 +26,13 @@ export default async function Page() {
             <CardAction>{employee.age}</CardAction>
           </CardHeader>
 
-          <CardFooter>
+          <CardFooter className={'flex gap-5'}>
+            <Link href={`/form/edit/${employee.id}`}>Edit</Link>
             <Link href={`/employees/${employee.id}`}>Go to profile</Link>
           </CardFooter>
         </Card>
       })}
-      <Counter func={func} />
+
     </div>
   )
 }

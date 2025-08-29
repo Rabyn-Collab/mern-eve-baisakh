@@ -15,19 +15,21 @@ import { Loader2Icon } from "lucide-react";
 import toast from "react-hot-toast";
 export default function Page() {
 
-  const [state, action, isPending] = useActionState(addEmployee, null);
-  console.log(isPending);
-
-  const handleForm = async (formData) => {
+  const handleForm = async (prevData, formData) => {
     try {
       const res = await addEmployee(formData);
       toast.success(res.message);
     } catch (err) {
-      console.log(err);
+
       toast.error(err.message);
 
     }
   }
+
+  const [state, action, isPending] = useActionState(handleForm, null);
+
+
+
 
   return (
     <div className="p-5">
@@ -41,7 +43,7 @@ export default function Page() {
 
         </CardHeader>
         <CardContent>
-          <form action={handleForm}>
+          <form action={action}>
             <div className="flex flex-col gap-6">
 
               <div className="grid gap-2">

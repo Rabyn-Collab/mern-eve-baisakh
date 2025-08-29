@@ -22,3 +22,21 @@ export async function addEmployee(formData) {
   }
 
 }
+
+export async function editEmployee({ id, fullname, position, age }) {
+  try {
+
+    await axios.put(`https://60f3af443cb0870017a8a007.mockapi.io/employees/${id}`, {
+      fullname: fullname,
+      position: position,
+      age: age
+    });
+
+    return { success: true, message: 'Employee updated successfully' };
+
+  } catch (err) {
+    return { success: false, message: err.message };
+
+  }
+
+}
