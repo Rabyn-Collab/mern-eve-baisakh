@@ -9,9 +9,13 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import Link from 'next/link.js';
+import RemoveEmployee from '../components/RemoveEmployee.jsx';
+
+//export const dynamic = "force-dynamic";
+//export const revalidate = 5;
 
 export default async function Page() {
-  const response = await axios.get('https://60f3af443cb0870017a8a007.mockapi.io/employees');
+  const response = await axios.get('http://localhost:3000/api/employees');
   const data = response.data;
 
 
@@ -29,6 +33,7 @@ export default async function Page() {
           <CardFooter className={'flex gap-5'}>
             <Link href={`/form/edit/${employee.id}`}>Edit</Link>
             <Link href={`/employees/${employee.id}`}>Go to profile</Link>
+            <RemoveEmployee id={employee.id} />
           </CardFooter>
         </Card>
       })}
