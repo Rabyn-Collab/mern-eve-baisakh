@@ -11,6 +11,8 @@ import {
 import Link from 'next/link.js';
 import RemoveEmployee from '../components/RemoveEmployee.jsx';
 import Image from 'next/image.js';
+import { getServerSession } from 'next-auth';
+import { options } from './api/auth/[...nextauth]/options.js';
 
 //export const dynamic = "force-dynamic";
 //export const revalidate = 5;
@@ -18,6 +20,8 @@ import Image from 'next/image.js';
 export default async function Page() {
   const response = await axios.get('http://localhost:3000/api/employees');
   const data = response.data;
+  const session = await getServerSession(options);
+  console.log(session);
 
 
   return (

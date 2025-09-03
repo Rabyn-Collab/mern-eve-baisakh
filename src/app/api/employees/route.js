@@ -13,9 +13,9 @@ export async function GET(request, { parmas }) {
   // console.log(searchParams.get('a'));
 
   try {
-    const employees = await Employee.find({});
-    // const response = await axios.get('https://60f3af443cb0870017a8a007.mockapi.io/employees');
-    return Response.json(employees);
+    // const employees = await Employee.find({});
+    const response = await axios.get('https://60f3af443cb0870017a8a007.mockapi.io/employees');
+    return Response.json(response.data, { status: 200 });
   } catch (err) {
     throw new Error(err.message);
   }

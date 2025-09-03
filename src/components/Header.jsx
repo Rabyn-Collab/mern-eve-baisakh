@@ -9,6 +9,7 @@ export default function Header() {
       <nav className='space-x-5'>
 
         <Link href={'/form/add'}>Add Employee</Link>
+        <Link href={'/dashboard'}>Dashboard</Link>
 
 
       </nav>
