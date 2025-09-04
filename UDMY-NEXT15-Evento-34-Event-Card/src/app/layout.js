@@ -5,6 +5,9 @@ import "./globals.css";
 import NavComponent from "@/components/nav/header";
 import AuthProvider from "@/providers/authProvider";
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const roboto = Roboto({
   weight:['400','700'],
   style:['normal','italic'],
@@ -39,6 +42,7 @@ export default function RootLayout({ children }) {
           <>
             {children}
           </>
+          <ToastContainer/>
         </NextUIProvider>
       </AuthProvider>
       </body>
