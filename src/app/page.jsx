@@ -18,10 +18,7 @@ import { options } from './api/auth/[...nextauth]/options.js';
 //export const revalidate = 5;
 
 export default async function Page() {
-  const response = await axios.get('http://localhost:3000/api/employees');
-  const data = response.data;
-  const session = await getServerSession(options);
-  console.log(session);
+
 
 
   return (
@@ -34,7 +31,7 @@ export default async function Page() {
         height={200}
         width={300}
       /> */}
-      {data.map((employee) => {
+      {/* {data.map((employee) => {
         return <Card key={employee.id} className={'mb-5'}>
           <CardHeader>
             <CardTitle>{employee.fullname}</CardTitle>
@@ -48,7 +45,7 @@ export default async function Page() {
             <RemoveEmployee id={employee.id} />
           </CardFooter>
         </Card>
-      })}
+      })} */}
 
     </div>
   )

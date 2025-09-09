@@ -1,7 +1,7 @@
-
-
 import CredentialsProvider from "next-auth/providers/credentials";
-
+import dbConnect from "../../../../lib/mongodb";
+import User from "../../../../models/User";
+import bcrypt from "bcrypt";
 
 
 export const options = {
@@ -21,18 +21,22 @@ export const options = {
         },
       },
       async authorize(credentials) {
-        const user = {
-          id: 1,
-          name: "John Doe",
-          email: 'rabyn900@gmail.com',
-        };
-        if (credentials.email === user.email && credentials.password === 'password') {
-          return user;
-        }
-        return null;
+        await dbConnect();
 
+        const isExist = await User.findOne({ email: credentials.email });
+        if (!isExist) {
+          return null
+        };
+        const comparePass = bcrypt.compareSync(credentials.password, isExist.password);
+        if (!comparePass) {
+          return null
+        };
+        return isExist
       },
     }),
-  ]
+  ],
+  pages: {
+    signIn: "/form/login",
+  },
 
 }

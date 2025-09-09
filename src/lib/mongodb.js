@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const MONGODB_URI = 'mongodb+srv://psg017597:pass900@cluster0.yqujtfd.mongodb.net/Company';
+const MONGODB_URI = 'mongodb+srv://psg017597:pass900@cluster0.yqujtfd.mongodb.net/Shop';
 
 
 

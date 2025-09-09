@@ -8,8 +8,8 @@ export default function Header() {
       <h1>Logo</h1>
       <nav className='space-x-5'>
 
-        <Link href={'/form/add'}>Add Employee</Link>
-        <Link href={'/dashboard'}>Dashboard</Link>
+        <Link href={'/form/login'}>Login</Link>
+        {/* <Link href={'/dashboard'}>Dashboard</Link> */}
 
 
       </nav>
