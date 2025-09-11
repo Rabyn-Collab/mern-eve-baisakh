@@ -13,10 +13,10 @@ export async function POST(request) {
       email,
       password: hashPassword
     });
-    return Response.json({ message: 'User created successfully' });
+    return Response.json({ message: 'User created successfully' }, { status: 201 });
 
   } catch (err) {
-    return Response.json({ message: err.message });
+    return Response.json({ message: err.message }, { status: 500 });
 
   }
 

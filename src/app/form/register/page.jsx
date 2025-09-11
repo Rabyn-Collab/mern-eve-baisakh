@@ -11,62 +11,70 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Formik } from "formik";
 import { Loader2Icon } from "lucide-react";
-import { signIn, useSession } from "next-auth/react";
-import Link from "next/link";
-import { redirect, useRouter } from "next/navigation";
+
+import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import toast from "react-hot-toast";
+import { registerUser } from "../../../lib/action";
 
 export default function Page() {
-  const { data: session, status } = useSession();
 
   const router = useRouter();
   const [isPending, setTransition] = useTransition();
-  console.log(status);
 
-  if (status === "authenticated") {
-    redirect('/')
-  }
+
 
   return (
     <div className="p-5">
 
       <Card className="w-full max-w-sm p-5">
         <CardHeader>
-          <CardTitle>Login Form</CardTitle>
+          <CardTitle>Register Form</CardTitle>
           <CardDescription>
-            Enter your login detail
+            Enter your register detail
           </CardDescription>
 
         </CardHeader>
 
         <Formik
           initialValues={{
+            username: '',
             email: '',
             password: '',
           }}
           onSubmit={(val) => {
+
             setTransition(async () => {
-
-              const response = await signIn('credentials', {
-                email: val.email,
-                password: val.password,
-                redirect: false
-              });
-              if (response.ok) {
-                toast.success('Login successfully');
+              try {
+                await registerUser(val);
+                toast.success('User created successfully');
                 router.back();
-              } else {
-                toast.error('Login failed');
-              }
 
-            });
+              } catch (err) {
+                toast.error(err.message);
+
+              }
+            })
+
 
           }}
         >
           {({ handleChange, handleSubmit, values, errors, touched }) => (
             <form onSubmit={handleSubmit}>
               <div className="flex flex-col gap-6">
+
+                <div className="grid gap-2">
+                  <Label htmlFor="username">Username</Label>
+                  <Input
+                    onChange={handleChange}
+                    values={values.username}
+                    id="username"
+                    type="text"
+                    placeholder="Your Username"
+                    name="username"
+
+                  />
+                </div>
 
                 <div className="grid gap-2">
                   <Label htmlFor="email">Email</Label>
@@ -111,8 +119,8 @@ export default function Page() {
           )}
         </Formik>
         <CardContent className={'flex gap-3'}>
-          <p>Don't have an Account ?</p>
-          <Link href={'/form/register'}>Register</Link>
+          <p>Already have an Account ?</p>
+          <p className="cursor-pointer" onClick={() => router.back()}>Login</p>
 
         </CardContent>
 

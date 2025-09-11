@@ -3,6 +3,18 @@ import axios from "axios";
 import { revalidatePath } from "next/cache.js";
 
 
+export async function registerUser(data) {
+  try {
+    await axios.post('http://localhost:3000/api/register', data);
+    return { success: true, message: 'User created successfully' };
+  } catch (err) {
+
+    return { success: false, message: err.message };
+  }
+
+}
+
+
 
 export async function addEmployee(formData) {
   try {
