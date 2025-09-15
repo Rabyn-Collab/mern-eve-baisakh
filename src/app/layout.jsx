@@ -1,7 +1,6 @@
 import Header from "../components/Header.jsx";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
-import AuthProvider from "./providers/authProviders.js";
 
 
 export default function RootLayout({ children }) {
@@ -9,11 +8,11 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <div>
-          <AuthProvider>
-            <Header />
-            <Toaster />
-            {children}
-          </AuthProvider>
+
+          <Header />
+          <Toaster />
+          {children}
+
         </div>
 
       </body>
